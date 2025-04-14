@@ -6,4 +6,7 @@
         x:Class="demo_14_4.MainWindow"
         Title="demo_14_4">
     Welcome to Avalonia!
+	<DockPanel>
+		
+	</DockPanel>
 </Window>

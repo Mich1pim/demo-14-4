@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\\u0418\u043B\u044C\u044F\\source\\repos\\demo-14-4\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|c:\\users\\\u0438\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|solutionrelative:demo-14-4\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|c:\\users\\\u0438\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
       "RelativeMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|solutionrelative:demo-14-4\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|c:\\users\\\u0438\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|solutionrelative:demo-14-4\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8D9FFEC-AAD1-4CEF-8ABB-FC7D19E42413}|demo-14-4\\demo-14-4.csproj|c:\\users\\\u0438\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\demo-14-4.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -26,12 +26,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "demo-14-4",
+              "Title": "demo-14-4.csproj",
               "DocumentMoniker": "C:\\Users\\\u0418\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\demo-14-4.csproj",
               "RelativeDocumentMoniker": "demo-14-4\\demo-14-4.csproj",
               "ToolTip": "C:\\Users\\\u0418\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\demo-14-4.csproj",
@@ -51,12 +51,11 @@
               "RelativeToolTip": "demo-14-4\\App.axaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T12:14:55.376Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T12:14:55.376Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.axaml",
               "DocumentMoniker": "C:\\Users\\\u0418\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\MainWindow.axaml",
               "RelativeDocumentMoniker": "demo-14-4\\MainWindow.axaml",
@@ -68,7 +67,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.axaml.cs",
               "DocumentMoniker": "C:\\Users\\\u0418\u043B\u044C\u044F\\source\\repos\\demo-14-4\\demo-14-4\\MainWindow.axaml.cs",
               "RelativeDocumentMoniker": "demo-14-4\\MainWindow.axaml.cs",
