@@ -24,5 +24,11 @@ build_property.EnableCodeStyleSeverity =
 [C:/Users/Илья/source/repos/demo-14-4/demo-14-4/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Илья/source/repos/demo-14-4/demo-14-4/ChangeCostDialog.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Илья/source/repos/demo-14-4/demo-14-4/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Илья/source/repos/demo-14-4/demo-14-4/Images/picture.png]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

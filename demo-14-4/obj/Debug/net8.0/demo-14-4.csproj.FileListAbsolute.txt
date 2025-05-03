@@ -146,3 +146,4 @@ C:\Users\Илья\source\repos\demo-14-4\demo-14-4\bin\Debug\net8.0\ru\Microsoft
 C:\Users\Илья\source\repos\demo-14-4\demo-14-4\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Илья\source\repos\demo-14-4\demo-14-4\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Илья\source\repos\demo-14-4\demo-14-4\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Илья\source\repos\demo-14-4\demo-14-4\obj\Debug\net8.0\demo-14-4.sourcelink.json
