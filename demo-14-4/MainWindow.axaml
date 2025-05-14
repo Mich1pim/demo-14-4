@@ -75,9 +75,24 @@
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
-								<Image Source="{Binding Image}"
-									   Width="100"
-									   Height="100"/>
+								<ItemsControl
+										ItemsSource="{Binding Images}"
+										Width="200"
+										Height="200">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Orientation="Horizontal"/>
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<Image Source="{Binding}"
+												   Width="100"
+												   Height="100"
+												   Margin="2"/>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
 								<StackPanel Grid.Column="1"
 											VerticalAlignment="Center"
 											Margin="10,0">

@@ -29,11 +29,12 @@ namespace demo_14_4
         public MainWindow()
         {
             InitializeComponent();
+            ProductBox.Tag = new Func<ProductPresenter, bool>(p => p.Images.Count() == 1);
             LoadData();
             InitializeUI();
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             using var context = new MydatabaseContext();
 
@@ -43,11 +44,12 @@ namespace demo_14_4
                 .Where(it => it.ProductMaterials.Count > 0)
                 .Include(type => type.ProductType)
                 .Include(sale => sale.ProductSales)
+                .Include(image => image.ProductImages)
                 .Select(product => new ProductPresenter
                 {
                     Id = product.Id,
                     Title = product.Title,
-                    Images = product.Images,
+                    ProductImages = product.ProductImages,
                     ProductionWorkshopNumber = product.ProductionWorkshopNumber,
                     ArticleNumber = product.ArticleNumber,
                     MinCostForAgent = product.MinCostForAgent,
@@ -56,10 +58,12 @@ namespace demo_14_4
                     ProductSales = product.ProductSales
                 })
                 .ToList();
+            
+            
 
             var dataSourseType = context.ProductTypes.Select(it => it.Title).ToList();
             productTypes = new ObservableCollection<string>(dataSourseType);
-            productTypes.Insert(0, "Все типы");
+            productTypes.Insert(0, "Р’СЃРµ С‚РёРїС‹");
         }
 
         private void InitializeUI()
@@ -70,18 +74,61 @@ namespace demo_14_4
             FilterBox.SelectedIndex = 0;
             DisplayProducts();
 
+            var addButton = new Button
+            {
+                Content = "Р”РѕР±Р°РІРёС‚СЊ РїСЂРѕРґСѓРєС‚",
+                Margin = new Avalonia.Thickness(5)
+            };
+            addButton.Click += AddButton_Click;
+
             var changeCostButton = new Button
             {
-                Content = "Изменить стоимость на...",
+                Content = "РР·РјРµРЅРёС‚СЊ СЃС‚РѕРёРјРѕСЃС‚СЊ РЅР°...",
                 Margin = new Avalonia.Thickness(5),
                 IsEnabled = false
             };
             changeCostButton.Click += ChangeCostButton_Click;
 
             var toolPanel = this.FindControl<StackPanel>("ToolPanel");
-            toolPanel.Children.Insert(1, changeCostButton);
+            toolPanel.Children.Insert(1, addButton);
+            toolPanel.Children.Insert(2, changeCostButton);
 
-            ProductBox.SelectionChanged += ProductBox_SelectionChanged;
+            ProductBox.SelectionChanged += (sender, e) => {
+                selectedProducts = ProductBox.SelectedItems.Cast<ProductPresenter>().ToList();
+                var selectedCountText = this.FindControl<TextBlock>("SelectedCountText");
+                selectedCountText.Text = $"Р’С‹Р±СЂР°РЅРѕ: {selectedProducts.Count}";
+                changeCostButton.IsEnabled = selectedProducts.Count > 0;
+            };
+
+            ProductBox.DoubleTapped += ProductBox_DoubleTapped;
+        }
+
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ProductEditWindow.IsAnyWindowOpen) return;
+
+            var window = new ProductEditWindow();
+            var result = await window.ShowDialog<bool>(this);
+
+            if (result)
+            {
+                LoadData();
+                DisplayProducts();
+            }
+        }
+
+        private async void ProductBox_DoubleTapped(object sender, RoutedEventArgs e)
+        {
+            if (ProductEditWindow.IsAnyWindowOpen || ProductBox.SelectedItem is not ProductPresenter product) return;
+
+            var window = new ProductEditWindow(product);
+            var result = await window.ShowDialog<bool>(this);
+
+            if (result)
+            {
+                LoadData();
+                DisplayProducts();
+            }
         }
 
         public void ProductBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,10 +137,10 @@ namespace demo_14_4
             selectedProducts = listBox.SelectedItems.Cast<ProductPresenter>().ToList();
 
             var selectedCountText = this.FindControl<TextBlock>("SelectedCountText");
-            selectedCountText.Text = $"Выбрано: {selectedProducts.Count}";
+            selectedCountText.Text = $"Р’С‹Р±СЂР°РЅРѕ: {selectedProducts.Count}";
 
             var toolPanel = this.FindControl<StackPanel>("ToolPanel");
-            var changeCostButton = toolPanel.Children.OfType<Button>().FirstOrDefault(b => b.Content.ToString().Contains("Изменить стоимость"));
+            var changeCostButton = toolPanel.Children.OfType<Button>().FirstOrDefault(b => b.Content.ToString().Contains("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"));
 
             if (changeCostButton != null)
             {
@@ -144,12 +191,12 @@ namespace demo_14_4
             if (productToDelete == null) return;
 
             context.ProductMaterials.RemoveRange(productToDelete.ProductMaterials);
-
             context.Products.Remove(productToDelete);
 
             if (context.SaveChanges() > 0)
             {
                 products.Remove(product);
+                dataSours.RemoveAll(p => p.Id == product.Id);
                 DisplayProducts();
             }
         }
@@ -270,9 +317,46 @@ namespace demo_14_4
     public class ProductPresenter() : Product
     {
         public string TypeName { get => ProductType.Title; }
-        private static Bitmap? _defaultImage;
+        public IEnumerable<Bitmap> Images => GetImages();
 
-        public Bitmap? Image => GetImage();
+        private IEnumerable<Bitmap> GetImages()
+        {
+            var images = new List<Bitmap>();
+
+            if (ProductImages != null && ProductImages.Any())
+            {
+                foreach (var image in ProductImages)
+                {
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(image.Imagepath) && File.Exists(image.Imagepath))
+                        {
+                            images.Add(new Bitmap(image.Imagepath));
+                        }
+                    }
+                    catch { }
+                }
+            }
+
+            if (!images.Any())
+            {
+                var defaultImage = LoadDefaultImage();
+                if (defaultImage != null)
+                {
+                    images.Add(defaultImage);
+                }
+            }
+
+            return images;
+        }
+
+        private static Bitmap? LoadDefaultImage()
+        {
+            var defaultPath = Path.Combine("Images", "picture.png");
+            return File.Exists(defaultPath)
+                ? new Bitmap(defaultPath)
+                : null;
+        }
 
         private bool _isSelected;
         public bool IsSelected
@@ -295,24 +379,7 @@ namespace demo_14_4
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private Bitmap? GetImage()
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(Images)) return new Bitmap(Images);
-            }
-            catch { }
-
-            return _defaultImage ??= LoadDefaultImage();
-        }
-
-        private static Bitmap LoadDefaultImage()
-        {
-            var defaultPath = Path.Combine("Images", "picture.png");
-            return File.Exists(defaultPath)
-                ? new Bitmap(defaultPath)
-                : null;
-        }
+       
 
         public string BackgroundColor
         {

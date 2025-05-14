@@ -31,6 +31,8 @@ public partial class MydatabaseContext : DbContext
 
     public virtual DbSet<ProductCostHistory> ProductCostHistories { get; set; }
 
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
+
     public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
 
     public virtual DbSet<ProductSale> ProductSales { get; set; }
@@ -198,6 +200,20 @@ public partial class MydatabaseContext : DbContext
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProductCostHistory_Product");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("productimage_pkey");
+
+            entity.ToTable("ProductImage");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('productimage_id_seq'::regclass)");
+            entity.Property(e => e.Imagepath).HasMaxLength(255);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("productimage_productid_fkey");
         });
 
         modelBuilder.Entity<ProductMaterial>(entity =>

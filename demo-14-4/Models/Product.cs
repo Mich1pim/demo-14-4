@@ -44,6 +44,8 @@ public partial class Product
 
     public virtual ICollection<ProductCostHistory> ProductCostHistories { get; set; } = new List<ProductCostHistory>();
 
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+
     public virtual ICollection<ProductMaterial> ProductMaterials { get; set; } = new List<ProductMaterial>();
 
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
